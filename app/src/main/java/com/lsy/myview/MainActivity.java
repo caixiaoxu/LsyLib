@@ -1,10 +1,11 @@
 package com.lsy.myview;
 
+import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-
-import com.lsy.viewlib.weight.ScrollSingleCharTextView;
+import com.lsy.viewlib.weight.ZanView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ScrollSingleCharTextView ztv = findViewById(R.id.zanTextview);
+        ZanView ztv = findViewById(R.id.zanTextview);
     }
 }
