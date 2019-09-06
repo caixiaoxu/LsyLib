@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="ZanTextView">
+    <declare-styleable name="ScrollSingleCharTextView">
         <attr name="textSize" format="dimension" />
         <attr name="textColor" format="color" />
         <attr name="number" format="integer" />
