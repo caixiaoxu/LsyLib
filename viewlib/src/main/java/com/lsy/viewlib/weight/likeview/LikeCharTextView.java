@@ -1,4 +1,4 @@
-package com.lsy.viewlib.weight.textview;
+package com.lsy.viewlib.weight.likeview;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -9,17 +9,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.lsy.viewlib.R;
 import com.orhanobut.logger.Logger;
 
-public class ScrollSingleCharTextView extends View {
+public class LikeCharTextView extends View {
 
     public static final int DEFAULT_TEXTCOLOR = Color.BLACK;
     public static final int DEFAULT_TEXTSIZE  = 36;
@@ -46,13 +44,13 @@ public class ScrollSingleCharTextView extends View {
     private float           animatorNewAlpha  = 0;
     private int             baseline;
 
-    public ScrollSingleCharTextView(Context context) {
+    public LikeCharTextView(Context context) {
         super(context);
 
         init();
     }
 
-    public ScrollSingleCharTextView(Context context, @Nullable AttributeSet attrs) {
+    public LikeCharTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         initAttr(context, attrs);
@@ -60,8 +58,8 @@ public class ScrollSingleCharTextView extends View {
         init();
     }
 
-    public ScrollSingleCharTextView(Context context, @Nullable AttributeSet attrs,
-                                    int defStyleAttr) {
+    public LikeCharTextView(Context context, @Nullable AttributeSet attrs,
+                            int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         initAttr(context, attrs);
@@ -77,12 +75,12 @@ public class ScrollSingleCharTextView extends View {
      */
     private void initAttr(Context context, @Nullable AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.ScrollSingleCharTextView);
-        textColor = typedArray.getColor(R.styleable.ScrollSingleCharTextView_textColor,
+                R.styleable.LikeCharTextView);
+        textColor = typedArray.getColor(R.styleable.LikeCharTextView_textColor,
                 DEFAULT_TEXTCOLOR);
-        textSize = typedArray.getDimensionPixelSize(R.styleable.ScrollSingleCharTextView_textSize,
+        textSize = typedArray.getDimensionPixelSize(R.styleable.LikeCharTextView_textSize,
                 DEFAULT_TEXTSIZE);
-        num = typedArray.getInt(R.styleable.ScrollSingleCharTextView_number, 0);
+        num = typedArray.getInt(R.styleable.LikeCharTextView_number, 0);
         if (0 > num || num > 10) {
             throw new IllegalArgumentException("Number is only 0-9");
         }
@@ -168,6 +166,18 @@ public class ScrollSingleCharTextView extends View {
 
         newTextPaint.setAlpha((int) (255 * animatorNewAlpha));
         canvas.drawText(String.valueOf(newNum), width / 2, animatorNewY, newTextPaint);
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+        init();
+        invalidate();
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
+        init();
+        invalidate();
     }
 
     public void setAnimatorOldY(int animatorOldY) {

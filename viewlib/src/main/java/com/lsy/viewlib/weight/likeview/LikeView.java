@@ -1,45 +1,64 @@
-package com.lsy.viewlib.weight;
+package com.lsy.viewlib.weight.likeview;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
+import android.content.res.TypedArray;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import com.lsy.viewlib.weight.textview.ScrollSingleCharTextView;
+import com.lsy.viewlib.R;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZanView extends LinearLayout {
+public class LikeView extends LinearLayout {
     private TextPaint                      textPaint;
     private int                            measureWidth, measureHeight;
 
-    private int                            textSize = ScrollSingleCharTextView.DEFAULT_TEXTSIZE;
+    private boolean                        isAdd   = false;
 
-    private int                            num      = 399;
-    private boolean                        isAdd    = false;
+    private int                            num;
+    private int                            textSize;
+    private int                            textColor;
 
-    private List<ScrollSingleCharTextView> charTvs  = new ArrayList<>();
+    private List<LikeCharTextView> charTvs = new ArrayList<>();
 
-    public ZanView(Context context) {
-        this(context, null);
+    public LikeView(Context context) {
+        super(context);
+        init();
     }
 
-    public ZanView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
+    public LikeView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
 
-    public ZanView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        initAttr(context, attrs);
 
         init();
+    }
+
+    public LikeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+
+        initAttr(context, attrs);
+
+        init();
+    }
+
+    private void initAttr(Context context, AttributeSet attrs) {
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.LikeView);
+        textColor = typedArray.getColor(R.styleable.LikeView_textColor,
+                LikeCharTextView.DEFAULT_TEXTCOLOR);
+        textSize = typedArray.getDimensionPixelSize(R.styleable.LikeView_textSize,
+                LikeCharTextView.DEFAULT_TEXTSIZE);
+        num = typedArray.getInt(R.styleable.LikeView_number, 0);
+
+        typedArray.recycle();
     }
 
     /**
@@ -47,35 +66,18 @@ public class ZanView extends LinearLayout {
      */
     private void init() {
 
-        initPaints();
-        initParams();
         initView();
-    }
-
-    /**
-     * 初始化画笔
-     */
-    private void initPaints() {
-        textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setTextSize(textSize);
-    }
-
-    /**
-     * 初始化参数
-     */
-    private void initParams() {
-        Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
-        measureWidth = (int) textPaint.measureText(String.valueOf(num));
-        measureHeight = (int) (fontMetrics.bottom - fontMetrics.top);
     }
 
     protected void initView() {
         charTvs.clear();
         String str_num = String.valueOf(num);
         for (int i = 0; i < str_num.length(); i++) {
-            ScrollSingleCharTextView textView = new ScrollSingleCharTextView(getContext());
+            LikeCharTextView textView = new LikeCharTextView(getContext());
             int show_num = Integer.valueOf(str_num.substring(i, i + 1));
             Log.e("zanview", "show_num:" + show_num);
+            textView.setTextSize(textSize);
+            textView.setTextColor(textColor);
             textView.setNum(show_num);
             addView(textView);
             charTvs.add(textView);
@@ -85,32 +87,66 @@ public class ZanView extends LinearLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        //计算出所有的childView的宽高
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
+    }
 
+    /**
+     * 测量宽度
+     *
+     * @param widthMeasureSpec
+     * @return
+     */
+    private int measureWidth(int widthMeasureSpec) {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         switch (widthMode) {
             case MeasureSpec.UNSPECIFIED:
                 break;
             case MeasureSpec.AT_MOST:
-                widthSize = measureWidth;
+                widthSize = 0;
+                for (int i = 0; i < getChildCount(); i++) {
+                    View childView = getChildAt(i);
+                    //获取子view的宽
+                    int cWidth = childView.getMeasuredWidth();
+                    MarginLayoutParams params = (MarginLayoutParams) childView.getLayoutParams();
+                    widthSize += cWidth + params.leftMargin + params.rightMargin;
+                }
                 break;
             case MeasureSpec.EXACTLY:
                 break;
         }
+        return widthSize;
+    }
 
+    /**
+     * 测量高度
+     *
+     * @param widthMeasureSpec
+     * @return
+     */
+    private int measureHeight(int widthMeasureSpec) {
         int heightMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(widthMeasureSpec);
         switch (heightMode) {
             case MeasureSpec.UNSPECIFIED:
                 break;
             case MeasureSpec.AT_MOST:
-                heightSize = measureHeight;
+                heightSize = 0;
+                for (int i = 0; i < getChildCount(); i++) {
+                    View childView = getChildAt(i);
+                    //获取子view的宽
+                    int cWidth = childView.getMeasuredHeight();
+                    MarginLayoutParams params = (MarginLayoutParams) childView.getLayoutParams();
+                    int height = cWidth + params.leftMargin + params.rightMargin;
+                    heightSize = Math.max(heightSize, height);
+                }
                 break;
             case MeasureSpec.EXACTLY:
                 break;
         }
-
-        setMeasuredDimension(widthSize, heightSize);
+        return heightSize;
     }
 
     private boolean   click      = false;
@@ -160,24 +196,21 @@ public class ZanView extends LinearLayout {
                 Logger.e("点击事件,chr_num:%d,charTvs.size:%d,i:%d", chr_num, charTvs.size(), i);
                 Logger.e("是否执行动画:" + (charTvs.size() > i));
                 if (charTvs.size() > i) {
-                    if (i == (str_num.length() - 1)) {
-                        Logger.e("点击事件,执行个位动画");
+                    if (i == (str_num.length() - 1) || nextAnim) {
+                        Logger.e("点击事件,执行个位动画||%b执行执行上%d位动画", nextAnim, i);
                         charTvs.get(i).change(true);
-                    } else {
-                        Logger.e("点击事件,%b执行执行上%d位动画", nextAnim, i);
-                        if (nextAnim) {
-                            charTvs.get(i).change(true);
+
+                        chr_num--;
+                        Logger.e("chr_num:%d，是否执行上一位动画:", chr_num, (chr_num < 0));
+                        if (chr_num < 0) {
+                            nextAnim = true;
+                        } else {
                             nextAnim = false;
                         }
+
+                        Logger.e("nextAnim:" + nextAnim);
                     }
                 }
-
-                chr_num--;
-                Logger.e("chr_num:%d，是否执行上一位动画:", chr_num, (chr_num < 0));
-                if (chr_num < 0) {
-                    nextAnim = true;
-                }
-                Logger.e("nextAnim:" + nextAnim);
             }
             num--;
             isAdd = !isAdd;
@@ -187,24 +220,20 @@ public class ZanView extends LinearLayout {
                 Logger.e("点击事件,chr_num:%d,charTvs.size:%d,i:%d", chr_num, charTvs.size(), i);
                 Logger.e("是否执行动画:" + (charTvs.size() > i));
                 if (charTvs.size() > i) {
-                    if (i == (str_num.length() - 1)) {
-                        Logger.e("点击事件,执行个位动画");
+                    if (i == (str_num.length() - 1) || nextAnim) {
+                        Logger.e("点击事件,执行个位动画||%b执行执行上%d位动画", nextAnim, i);
                         charTvs.get(i).change(false);
-                    } else {
-                        Logger.e("点击事件,%b执行执行上%d位动画", nextAnim, i);
-                        if (nextAnim) {
-                            charTvs.get(i).change(false);
+
+                        chr_num++;
+                        Logger.e("chr_num:%d，是否执行上一位动画:", chr_num, (chr_num > 9));
+                        if (chr_num > 9) {
+                            nextAnim = true;
+                        } else {
                             nextAnim = false;
                         }
+                        Logger.e("nextAnim:" + nextAnim);
                     }
                 }
-
-                chr_num++;
-                Logger.e("chr_num:%d，是否执行上一位动画:", chr_num, (chr_num > 9));
-                if (chr_num > 9) {
-                    nextAnim = true;
-                }
-                Logger.e("nextAnim:" + nextAnim);
             }
             num++;
             isAdd = !isAdd;
