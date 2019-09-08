@@ -17,33 +17,34 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.lsy.viewlib.R;
+import com.orhanobut.logger.Logger;
 
 public class ScrollSingleCharTextView extends View {
 
     public static final int DEFAULT_TEXTCOLOR = Color.BLACK;
-    public static final int DEFAULT_TEXTSIZE = 36;
+    public static final int DEFAULT_TEXTSIZE  = 36;
 
-    private TextPaint newTextPaint, oldTextPaint;
+    private TextPaint       newTextPaint, oldTextPaint;
 
-    private AnimatorSet addAnimator;
-    private AnimatorSet minusAnimator;
+    private AnimatorSet     addAnimator;
+    private AnimatorSet     minusAnimator;
 
-    private int measureWidth;
-    private int measureHeight;
+    private int             measureWidth;
+    private int             measureHeight;
 
-    private int textColor = DEFAULT_TEXTCOLOR;
-    private int textSize = DEFAULT_TEXTSIZE;
+    private int             textColor         = DEFAULT_TEXTCOLOR;
+    private int             textSize          = DEFAULT_TEXTSIZE;
 
-    private int num;
-    private int oldNum;
-    private int newNum;
+    private int             num;
+    private int             oldNum;
+    private int             newNum;
 
-    private int animatorOldY;
-    private float animatorOldAlpha = 1;
+    private int             animatorOldY;
+    private float           animatorOldAlpha  = 1;
 
-    private int animatorNewY;
-    private float animatorNewAlpha = 0;
-    private int baseline;
+    private int             animatorNewY;
+    private float           animatorNewAlpha  = 0;
+    private int             baseline;
 
     public ScrollSingleCharTextView(Context context) {
         super(context);
@@ -199,6 +200,7 @@ public class ScrollSingleCharTextView extends View {
     }
 
     public void add() {
+        Logger.e("执行加动画.基线：" + baseline);
         ObjectAnimator oldYAnimator = ObjectAnimator.ofInt(this, "animatorOldY", baseline, 0);
         ObjectAnimator oldAlphaAnimator = ObjectAnimator.ofFloat(this, "animatorOldAlpha", 1, 0);
         ObjectAnimator newYAnimator = ObjectAnimator.ofInt(this, "animatorNewY", baseline * 2,
@@ -213,6 +215,7 @@ public class ScrollSingleCharTextView extends View {
     }
 
     public void minus() {
+        Logger.e("执行减动画.基线:" + baseline);
         ObjectAnimator oldYAnimator = ObjectAnimator.ofInt(this, "animatorOldY", baseline,
                 baseline * 2);
         ObjectAnimator oldAlphaAnimator = ObjectAnimator.ofFloat(this, "animatorOldAlpha", 1, 0);
@@ -226,29 +229,32 @@ public class ScrollSingleCharTextView extends View {
         minusAnimator.start();
     }
 
-
     public void change(boolean isAdd) {
+        Logger.e("charTextVie.点击事件:" + isAdd);
         if (isAdd) {
             if (null != addAnimator && addAnimator.isStarted()) {
+                Logger.e("charTextVie.加动画已执行.取消");
                 addAnimator.cancel();
             }
             if (null != minusAnimator && minusAnimator.isStarted()) {
-                return;
+                Logger.e("charTextVie.减动画已执行.取消");
+                minusAnimator.cancel();
             }
             sumNum(false);
             minus();
         } else {
             if (null != minusAnimator && minusAnimator.isStarted()) {
+                Logger.e("charTextVie.减动画已执行.取消");
                 minusAnimator.cancel();
             }
             if (null != addAnimator && addAnimator.isStarted()) {
-                return;
+                Logger.e("charTextVie.加动画已执行.取消");
+                addAnimator.cancel();
             }
             sumNum(true);
             add();
         }
     }
-
 
     /**
      * 重新计算绘画的值
@@ -256,6 +262,7 @@ public class ScrollSingleCharTextView extends View {
      * @param isAdd
      */
     private void sumNum(boolean isAdd) {
+        Logger.e("计算值开始");
         oldNum = num;
         newNum = num + (isAdd ? 1 : -1);
         if (newNum < 0) {
@@ -264,5 +271,6 @@ public class ScrollSingleCharTextView extends View {
             newNum = 0;
         }
         num = newNum;
+        Logger.e("计算值结束：" + num);
     }
 }

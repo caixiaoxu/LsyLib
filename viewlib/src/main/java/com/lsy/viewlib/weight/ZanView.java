@@ -12,20 +12,21 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 
 import com.lsy.viewlib.weight.textview.ScrollSingleCharTextView;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ZanView extends LinearLayout {
-    private TextPaint textPaint;
-    private int measureWidth, measureHeight;
+    private TextPaint                      textPaint;
+    private int                            measureWidth, measureHeight;
 
-    private int textSize = ScrollSingleCharTextView.DEFAULT_TEXTSIZE;
+    private int                            textSize = ScrollSingleCharTextView.DEFAULT_TEXTSIZE;
 
-    private int num = 399;
-    private boolean isAdd = false;
+    private int                            num      = 399;
+    private boolean                        isAdd    = false;
 
-    private List<ScrollSingleCharTextView> charTvs = new ArrayList<>();
+    private List<ScrollSingleCharTextView> charTvs  = new ArrayList<>();
 
     public ZanView(Context context) {
         this(context, null);
@@ -112,12 +113,12 @@ public class ZanView extends LinearLayout {
         setMeasuredDimension(widthSize, heightSize);
     }
 
-    private boolean click = false;
+    private boolean   click      = false;
 
     private final int MOHUFANWEI = 10;
 
-    private float lastX = 0;
-    private float lastY = 0;
+    private float     lastX      = 0;
+    private float     lastY      = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -149,16 +150,64 @@ public class ZanView extends LinearLayout {
     }
 
     private void onClick() {
+        Logger.e("点击事件" + isAdd);
+        String str_num = String.valueOf(num);
+        Logger.e("点击事件,str_num:" + str_num);
+        boolean nextAnim = false;
         if (isAdd) {
-        } else {
-            String str_num = String.valueOf(num);
             for (int i = (str_num.length() - 1); i >= 0; i--) {
                 int chr_num = Integer.valueOf(str_num.substring(i, i + 1));
-                if (chr_num++ > 9 && charTvs.size() > i) {
-                    charTvs.get(i).change(false);
+                Logger.e("点击事件,chr_num:%d,charTvs.size:%d,i:%d", chr_num, charTvs.size(), i);
+                Logger.e("是否执行动画:" + (charTvs.size() > i));
+                if (charTvs.size() > i) {
+                    if (i == (str_num.length() - 1)) {
+                        Logger.e("点击事件,执行个位动画");
+                        charTvs.get(i).change(true);
+                    } else {
+                        Logger.e("点击事件,%b执行执行上%d位动画", nextAnim, i);
+                        if (nextAnim) {
+                            charTvs.get(i).change(true);
+                            nextAnim = false;
+                        }
+                    }
                 }
+
+                chr_num--;
+                Logger.e("chr_num:%d，是否执行上一位动画:", chr_num, (chr_num < 0));
+                if (chr_num < 0) {
+                    nextAnim = true;
+                }
+                Logger.e("nextAnim:" + nextAnim);
+            }
+            num--;
+            isAdd = !isAdd;
+        } else {
+            for (int i = (str_num.length() - 1); i >= 0; i--) {
+                int chr_num = Integer.valueOf(str_num.substring(i, i + 1));
+                Logger.e("点击事件,chr_num:%d,charTvs.size:%d,i:%d", chr_num, charTvs.size(), i);
+                Logger.e("是否执行动画:" + (charTvs.size() > i));
+                if (charTvs.size() > i) {
+                    if (i == (str_num.length() - 1)) {
+                        Logger.e("点击事件,执行个位动画");
+                        charTvs.get(i).change(false);
+                    } else {
+                        Logger.e("点击事件,%b执行执行上%d位动画", nextAnim, i);
+                        if (nextAnim) {
+                            charTvs.get(i).change(false);
+                            nextAnim = false;
+                        }
+                    }
+                }
+
+                chr_num++;
+                Logger.e("chr_num:%d，是否执行上一位动画:", chr_num, (chr_num > 9));
+                if (chr_num > 9) {
+                    nextAnim = true;
+                }
+                Logger.e("nextAnim:" + nextAnim);
             }
             num++;
+            isAdd = !isAdd;
         }
     }
 }
