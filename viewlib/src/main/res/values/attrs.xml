@@ -14,6 +14,7 @@
         <attr name="number" />
         <attr name="imageWithd" />
         <attr name="imageHeight" />
+        <attr name="imagePadding" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="LikeCharTextView">

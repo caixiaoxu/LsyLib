@@ -2,32 +2,37 @@ package com.lsy.viewlib.weight.likeview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
 import com.lsy.viewlib.R;
+import com.lsy.viewlib.utils.DensityUtil;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LikeView extends LinearLayout {
-    private TextPaint                      textPaint;
-    private int                            measureWidth, measureHeight;
+    private final int IMAGEPADDING = 4;
 
-    private boolean                        isAdd   = false;
+    private boolean isAdd = false;
 
-    private int                            num;
-    private int                            textSize;
-    private int                            textColor;
+    private int num;
+    private int textSize;
+    private int textColor;
+
+    private int imagePadding;
 
     private List<LikeCharTextView> charTvs = new ArrayList<>();
+    private LikeImageView likeImageView;
 
     public LikeView(Context context) {
         super(context);
@@ -57,6 +62,7 @@ public class LikeView extends LinearLayout {
         textSize = typedArray.getDimensionPixelSize(R.styleable.LikeView_textSize,
                 LikeCharTextView.DEFAULT_TEXTSIZE);
         num = typedArray.getInt(R.styleable.LikeView_number, 0);
+        imagePadding = typedArray.getDimensionPixelSize(R.styleable.LikeView_imagePadding, IMAGEPADDING);
 
         typedArray.recycle();
     }
@@ -70,6 +76,15 @@ public class LikeView extends LinearLayout {
     }
 
     protected void initView() {
+        removeAllViews();
+
+        likeImageView = new LikeImageView(getContext());
+        likeImageView.setAdd(isAdd);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.rightMargin = imagePadding;
+        likeImageView.setLayoutParams(layoutParams);
+        addView(likeImageView);
+
         charTvs.clear();
         String str_num = String.valueOf(num);
         for (int i = 0; i < str_num.length(); i++) {
@@ -82,6 +97,16 @@ public class LikeView extends LinearLayout {
             addView(textView);
             charTvs.add(textView);
         }
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+        init();
+        invalidate();
+    }
+
+    public void setAdd(boolean add) {
+        isAdd = add;
     }
 
     @Override
@@ -149,12 +174,12 @@ public class LikeView extends LinearLayout {
         return heightSize;
     }
 
-    private boolean   click      = false;
+    private boolean click = false;
 
     private final int MOHUFANWEI = 10;
 
-    private float     lastX      = 0;
-    private float     lastY      = 0;
+    private float lastX = 0;
+    private float lastY = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -191,6 +216,7 @@ public class LikeView extends LinearLayout {
         Logger.e("点击事件,str_num:" + str_num);
         boolean nextAnim = false;
         if (isAdd) {
+            likeImageView.changeLike(true);
             for (int i = (str_num.length() - 1); i >= 0; i--) {
                 int chr_num = Integer.valueOf(str_num.substring(i, i + 1));
                 Logger.e("点击事件,chr_num:%d,charTvs.size:%d,i:%d", chr_num, charTvs.size(), i);
@@ -215,6 +241,7 @@ public class LikeView extends LinearLayout {
             num--;
             isAdd = !isAdd;
         } else {
+            likeImageView.changeLike(false);
             for (int i = (str_num.length() - 1); i >= 0; i--) {
                 int chr_num = Integer.valueOf(str_num.substring(i, i + 1));
                 Logger.e("点击事件,chr_num:%d,charTvs.size:%d,i:%d", chr_num, charTvs.size(), i);
