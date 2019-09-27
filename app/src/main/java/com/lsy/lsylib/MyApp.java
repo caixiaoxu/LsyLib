@@ -1,4 +1,4 @@
-package com.lsy.myview;
+package com.lsy.lsylib;
 
 import android.app.Application;
 

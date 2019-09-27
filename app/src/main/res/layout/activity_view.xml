@@ -17,7 +17,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:text="点选控件"
+            android:text="点赞控件"
             android:textAllCaps="false" />
         <Button
             android:id="@+id/btn_seek"

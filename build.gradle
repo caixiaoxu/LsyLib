@@ -4,11 +4,11 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
-        
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -18,10 +18,42 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+//Android Studio统一管理依赖版本号引用配置
+ext {
+    //修改compileSdkVersion并不会影响我们的我们生成的app在手机先的行为。最理想的情况就是把compileSdkVersion设置到最高。
+    globalCompileSdkVersion = 28
+    //构建工具的版本号是多少，规则是可以用高的构建工具来构建低版本Sdk的工程。使用build-tools目录中的最大版本号即可
+    globalBuildToolsVersion = "29.0.2"
+    //targetSdkVersion的设置主要是当系统版本高于设置的target的时候。然后targetSdkVersion最好和compileSdkVersion一样。
+    globalTargetSdkVersion = 28
+    //这个就是程序运行的最低的要求的Sdk版本号，在低于这个版本号的手机设备上无法安装。
+    globalMinSdkVersion = 21
+
+
+    supportLibraryVersion = "27.1.1"
+
+    /*=================================常用的引用============================================*/
+    //supportLibVersion 的头数字是和targetSdkVersion 版本一样的。
+    androidDependencies = [
+            appcompat       : 'androidx.appcompat:appcompat:1.0.2',
+            google_material : "com.google.android.material:material:1.0.0-rc01",
+
+            //constraintLayout引用
+            constraintLayout: "androidx.constraintlayout:constraintlayout:1.1.3",
+    ]
+
+    /*=================================module中公共用到的引用============================================*/
+    globalDependencies = [
+            //butterknife
+            butterknife         : 'com.jakewharton:butterknife:10.2.0',
+            butterknife_compiler: 'com.jakewharton:butterknife-compiler:10.2.0'
+    ]
 }

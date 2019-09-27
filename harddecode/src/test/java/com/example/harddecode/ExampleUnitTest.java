@@ -1,4 +1,4 @@
-package com.lsy.myview;
+package com.example.harddecode;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.lsy.myview.weight;
+package com.lsy.lsylib.weight;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.lsy.myview.R;
+import com.lsy.lsylib.R;
 import com.lsy.viewlib.weight.seekselect.VideoCoverSeekLayout;
 
 import java.util.ArrayList;

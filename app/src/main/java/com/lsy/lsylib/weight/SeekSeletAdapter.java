@@ -1,4 +1,4 @@
-package com.lsy.myview.weight;
+package com.lsy.lsylib.weight;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import com.lsy.myview.R;
+import com.lsy.lsylib.R;
 import com.lsy.viewlib.weight.seekselect.VideoCoverSeekLayout;
 
 import java.util.List;

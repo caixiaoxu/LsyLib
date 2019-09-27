@@ -1,11 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.globalCompileSdkVersion
+    buildToolsVersion rootProject.ext.globalBuildToolsVersion
+
     defaultConfig {
         applicationId "com.lsy.myview"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion rootProject.ext.globalMinSdkVersion
+        targetSdkVersion rootProject.ext.globalTargetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -25,12 +27,16 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation project(path: ':viewlib')
 
-    implementation 'com.jakewharton:butterknife:10.2.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+    implementation androidDependencies.constraintLayout
+
+    implementation globalDependencies.butterknife
+    annotationProcessor globalDependencies.butterknife_compiler
+
+    implementation androidDependencies.google_material
 }

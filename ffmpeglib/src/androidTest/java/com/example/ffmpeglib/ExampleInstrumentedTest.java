@@ -1,4 +1,4 @@
-package com.lsy.myview;
+package com.example.ffmpeglib;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.lsy.myview", appContext.getPackageName());
+        assertEquals("com.example.ffmpeglib.test", appContext.getPackageName());
     }
 }

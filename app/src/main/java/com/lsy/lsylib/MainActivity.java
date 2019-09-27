@@ -1,4 +1,4 @@
-package com.lsy.myview;
+package com.lsy.lsylib;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.lsy.myview.weight.ViewActivity;
+import com.lsy.lsylib.weight.ViewActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
