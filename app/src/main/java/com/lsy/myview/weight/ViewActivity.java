@@ -1,4 +1,4 @@
-package com.lsy.myview;
+package com.lsy.myview.weight;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.lsy.viewlib.weight.likeview.LikeView;
+import com.lsy.myview.R;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -19,6 +19,19 @@
             android:layout_marginTop="10dp"
             android:textAllCaps="false"
             android:text="自定义View" />
-
+        <Button
+            android:id="@+id/btn_ffmpeg"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="ffmpeg" />
+        <Button
+            android:id="@+id/btn_mediacodec"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="硬解码/编码" />
     </LinearLayout>
 </ScrollView>
