@@ -4,21 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MainActivity">
+    tools:context=".ViewActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_custom_view"
+            android:id="@+id/btn_zan"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:textAllCaps="false"
-            android:text="自定义View" />
-
+            android:text="点选控件"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_seek"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="横向滑动选择"
+            android:textAllCaps="false" />
     </LinearLayout>
 </ScrollView>
