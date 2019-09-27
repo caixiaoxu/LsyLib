@@ -127,7 +127,7 @@ public class LikeImageView extends View {
     }
 
     public void setAdd(boolean add) {
-        isAdd = !add;
+        isAdd = add;
         shiningAlpha = 1.0f;
         invalidate();
     }

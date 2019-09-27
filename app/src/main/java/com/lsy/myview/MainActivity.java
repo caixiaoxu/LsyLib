@@ -16,14 +16,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        LikeView ztv = findViewById(R.id.zanTextview);
-        LikeImageView likeView = findViewById(R.id.likeView);
-
-        ObjectAnimator scaleXAnim = ObjectAnimator.ofFloat(likeView, "scaleX", 1f, 0.7f, 1f);
-        ObjectAnimator scaleYAnim = ObjectAnimator.ofFloat(likeView, "scaleY", 1f, 0.7f, 1f);
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(scaleXAnim,scaleYAnim);
-        animatorSet.start();
+        LikeView ztv = findViewById(R.id.zanTextview);
     }
 }
