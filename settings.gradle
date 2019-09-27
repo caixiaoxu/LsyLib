@@ -1,2 +1,2 @@
-include ':app', ':viewlib', ':ffmpeglib', ':harddecode'
+include ':app', ':viewlib', ':ffmpeglib', ':dxva'
 rootProject.name='MyView'
