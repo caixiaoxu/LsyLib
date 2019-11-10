@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="time_line_ml">24dp</dimen>
+    <dimen name="time_line_mr">24dp</dimen>
+    <dimen name="music_space">1dp</dimen>
+</resources>
