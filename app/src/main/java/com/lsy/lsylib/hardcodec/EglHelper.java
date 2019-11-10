@@ -68,6 +68,7 @@ public class EglHelper {
                 EGL14.EGL_CONTEXT_CLIENT_VERSION, 2,
                 EGL10.EGL_NONE
         };
+        //判断一下eglContext是否已经创建，已创建了共享
         if (null != eglContext) {
             mEglContext = mEgl.eglCreateContext(mEglDisplay, eglConfigs[0], eglContext, attrib_list);
         } else

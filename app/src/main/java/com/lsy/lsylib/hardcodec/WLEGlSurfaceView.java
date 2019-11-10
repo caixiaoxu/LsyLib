@@ -12,6 +12,7 @@ import java.lang.ref.WeakReference;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.opengles.GL10;
 
+//1、继成SurfaceView，并实现其CallBack回调
 public class WLEGlSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
     public final static int RENDERMODE_WHEN_DIRTY = 0;
     public final static int RENDERMODE_CONTINUOUSLY = 1;
@@ -73,6 +74,7 @@ public class WLEGlSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         }
     }
 
+    //4、提供和系统GLSurfaceView相同的调用方法
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (null == surface) {
@@ -96,7 +98,9 @@ public class WLEGlSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         wleglThread.onDestory();
     }
 
+    //2、自定义GLThread线程类，主要用于OpenGL的绘制操作
     static class WLEGLThread extends Thread {
+        //3、添加设置Surface和EglContext的方法
         private WeakReference<WLEGlSurfaceView> wleGlSurfaceViewWeakReference;
         private EglHelper eglHelper;
         private boolean isExit = false;
