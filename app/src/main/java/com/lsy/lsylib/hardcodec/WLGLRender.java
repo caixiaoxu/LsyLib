@@ -4,11 +4,8 @@ package com.lsy.lsylib.hardcodec;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
-
-import androidx.core.content.ContextCompat;
 
 import com.example.harddecode.utils.WlShaderUtil;
 import com.lsy.lsylib.R;
@@ -16,8 +13,6 @@ import com.lsy.lsylib.R;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-
-import javax.microedition.khronos.opengles.GL;
 
 public class WLGLRender implements WLEGlSurfaceView.WLEGLRender {
 
@@ -89,7 +84,7 @@ public class WLGLRender implements WLEGlSurfaceView.WLEGLRender {
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 
             //绘制图片
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.mv);
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.logo);
             GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
 
             //清空

@@ -30,4 +30,14 @@ public class ViewActivity extends AppCompatActivity {
     public void seekSelect(View view) {
         ActivityCompat.startActivity(this, new Intent(this, SeekSelectActivity.class), null);
     }
+
+    @OnClick(R.id.btn_tape)
+    public void scrollTape(View view) {
+        ActivityCompat.startActivity(this, new Intent(this, ScrollTapeActivity.class), null);
+    }
+
+    @OnClick(R.id.btn_change_picture)
+    public void chagePic(View view) {
+        ActivityCompat.startActivity(this, new Intent(this, ChagePictureActivity.class), null);
+    }
 }
