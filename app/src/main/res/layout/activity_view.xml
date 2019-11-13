@@ -42,5 +42,12 @@
             android:layout_marginTop="10dp"
             android:text="翻页效果"
             android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_subway_board"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="地铁到站牌效果"
+            android:textAllCaps="false" />
     </LinearLayout>
 </ScrollView>

@@ -40,4 +40,8 @@ public class ViewActivity extends AppCompatActivity {
     public void chagePic(View view) {
         ActivityCompat.startActivity(this, new Intent(this, ChagePictureActivity.class), null);
     }
+    @OnClick(R.id.btn_subway_board)
+    public void subwayBoard(View view) {
+        ActivityCompat.startActivity(this, new Intent(this, SubwayBoardActivity.class), null);
+    }
 }

@@ -10,7 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".weight.ChagePictureActivity"></activity>
+        <activity
+            android:name=".weight.SubwayBoardActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".weight.ChagePictureActivity" />
         <activity android:name=".weight.ScrollTapeActivity" />
         <activity android:name=".hardcodec.DXVAActivity" />
         <activity android:name=".weight.SeekSelectActivity" />
