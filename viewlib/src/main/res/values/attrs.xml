@@ -12,7 +12,7 @@
         <attr name="textSize" />
         <attr name="textColor" />
         <attr name="number" />
-        <attr name="imageWithd" />
+        <attr name="imageWidth" />
         <attr name="imageHeight" />
         <attr name="imagePadding" format="dimension" />
     </declare-styleable>
@@ -24,7 +24,7 @@
     </declare-styleable>
 
     <declare-styleable name="LikeImageView">
-        <attr name="imageWithd" />
+        <attr name="imageWidth" />
         <attr name="imageHeight" />
     </declare-styleable>
 
@@ -34,4 +34,13 @@
         <attr name="lineBgColor" format="color" />
         <attr name="time" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="IconTextView">
+        <attr name="fixed_txt_color" format="color"/>
+        <attr name="fixed_txt_size" format="dimension"/>
+        <attr name="omit_txt_color" format="color"/>
+        <attr name="omit_txt_size" format="dimension"/>
+    </declare-styleable>
+
+
 </resources>

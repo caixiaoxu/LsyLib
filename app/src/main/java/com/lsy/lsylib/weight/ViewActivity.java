@@ -44,4 +44,12 @@ public class ViewActivity extends AppCompatActivity {
     public void subwayBoard(View view) {
         ActivityCompat.startActivity(this, new Intent(this, SubwayBoardActivity.class), null);
     }
+    @OnClick(R.id.btn_icon_text)
+    public void iconTextView(View view) {
+        ActivityCompat.startActivity(this, new Intent(this, IconTextActivity.class), null);
+    }
+    @OnClick(R.id.btn_flowers)
+    public void flowers(View view) {
+        ActivityCompat.startActivity(this, new Intent(this, FlowersActivity.class), null);
+    }
 }

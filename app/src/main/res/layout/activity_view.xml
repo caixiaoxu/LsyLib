@@ -49,5 +49,19 @@
             android:layout_marginTop="10dp"
             android:text="地铁到站牌效果"
             android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_icon_text"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="带主标题次标题和icon的文本"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_flowers"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="花形象的图片"
+            android:textAllCaps="false" />
     </LinearLayout>
 </ScrollView>

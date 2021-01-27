@@ -19,6 +19,8 @@
         <activity android:name=".weight.SeekSelectActivity" />
         <activity android:name=".weight.ZanActivity" />
         <activity android:name=".weight.ViewActivity" />
+        <activity android:name=".weight.FlowersActivity" />
+        <activity android:name=".weight.IconTextActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
