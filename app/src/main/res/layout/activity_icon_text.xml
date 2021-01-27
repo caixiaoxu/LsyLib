@@ -8,7 +8,7 @@
 
     <com.lsy.viewlib.weight.IconTextView
         android:id="@+id/iconTextview"
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         app:fixed_txt_color="#FF191F24"
         app:fixed_txt_size="18sp"

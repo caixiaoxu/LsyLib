@@ -123,22 +123,21 @@ class IconTextView @JvmOverloads constructor(
                             }
                             //取出可以显示的字符长度
                             physicalOmit = omitTxt!!.substring(0, end)
+                            //加上省略
+                            physicalOmit += omitStr
+                            canvas.drawText(physicalOmit, fixedX + fixedTxtW, getBaseLine(omitPaint, measuredHeight / 2f), omitPaint)
                         }
-
-                        val omitX = fixedX + fixedTxtW
-                        if (physicalOmit.isNotEmpty()) {
-                            canvas.drawText(physicalOmit, omitX, getBaseLine(omitPaint, measuredHeight / 2f), omitPaint)
-                        }
-
-                        val omitStrX = omitX + omitPaint.measureText(physicalOmit)
-                        canvas.drawText(omitStr, omitStrX, getBaseLine(omitPaint, measuredHeight / 2f), omitPaint)
                     }
                 }
 
                 //图标
                 if (null != icon && (0 == type || 3 == type)) {
-                    val l = if (0 == type) fixedX + fixedTxtW + omitTxtW
-                    else fixedX + fixedTxtW + omitPaint.measureText(physicalOmit) + omitPaint.measureText(omitStr)
+                    var l = if (0 == type) fixedX + fixedTxtW + omitTxtW
+                    else fixedX + fixedTxtW + omitPaint.measureText(physicalOmit)
+                    //不超过边界
+                    if (l > (measuredWidth - icon!!.width)) {
+                        l = (measuredWidth - icon!!.width).toFloat()
+                    }
                     val t = (measuredHeight - icon!!.height) / 2f
                     val r = l + icon!!.width
                     val b = t + icon!!.height
