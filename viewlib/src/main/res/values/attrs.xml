@@ -38,6 +38,7 @@
     <declare-styleable name="IconTextView">
         <attr name="fixed_txt_color" format="color"/>
         <attr name="fixed_txt_size" format="dimension"/>
+        <attr name="fixed_txt_bold" format="boolean"/>
         <attr name="omit_txt_color" format="color"/>
         <attr name="omit_txt_size" format="dimension"/>
     </declare-styleable>

@@ -23,6 +23,7 @@ class IconTextView @JvmOverloads constructor(
     //固定文字颜色、大小
     private val fixedColor: Int
     private val fixedSize: Int
+    private val fixedBold:Boolean
 
     //可省略文字颜色、大小
     private val omitColor: Int
@@ -35,6 +36,7 @@ class IconTextView @JvmOverloads constructor(
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.IconTextView)
         fixedColor = typedArray.getColor(R.styleable.IconTextView_fixed_txt_color, Color.BLACK)
         fixedSize = typedArray.getDimensionPixelSize(R.styleable.IconTextView_fixed_txt_size, 14)
+        fixedBold = typedArray.getBoolean(R.styleable.IconTextView_fixed_txt_bold, true)
         omitColor = typedArray.getColor(R.styleable.IconTextView_omit_txt_color, Color.BLACK)
         omitSize = typedArray.getDimensionPixelSize(R.styleable.IconTextView_omit_txt_size, 12)
         typedArray.recycle()
@@ -46,6 +48,7 @@ class IconTextView @JvmOverloads constructor(
             textSize = fixedSize.toFloat()
             color = fixedColor
             style = Paint.Style.FILL
+            isFakeBoldText = fixedBold
         }
     }
 
